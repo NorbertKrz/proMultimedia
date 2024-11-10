@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+
+class LinePainter1Line2Turns extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = const Color.fromARGB(255, 197, 197, 197)
+      ..strokeWidth = 1
+      ..style = PaintingStyle.stroke;
+
+    Path path = Path();
+
+    double lineOffset = size.height * 0.1;
+    double arcHeight = size.height * 0.25;
+    double arcRadius = size.height * 0.05;
+
+    path.moveTo(0, size.height / 2 - lineOffset);
+    path.lineTo(size.width, size.height / 2 - lineOffset);
+
+    path.moveTo(0, size.height / 2);
+    path.lineTo(size.width * 0.85, size.height / 2);
+
+    path.relativeArcToPoint(
+      Offset(0, arcHeight),
+      radius: Radius.circular(arcRadius),
+    );
+    path.lineTo(size.width * 0.2, size.height * 0.75);
+
+    path.relativeArcToPoint(
+      Offset(0, arcHeight),
+      radius: Radius.circular(arcRadius),
+      clockwise: false,
+    );
+    path.lineTo(size.width, size.height);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}
